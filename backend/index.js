@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const userRoute = require('./routes/user.route.js');
+
 // Main
 
 dotenv.config();
@@ -22,6 +24,10 @@ app.use(cors({
 app.get('/', (request, response) => {
     response.send("Hello from backend");
 })
+
+// Routes
+
+app.use('/api/users' , userRoute);
 
 // Database connecting
 

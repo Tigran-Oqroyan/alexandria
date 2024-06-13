@@ -1,5 +1,5 @@
-import React from 'react';
-import './SignInForm.css'; // Make sure this path is correct based on your project structure
+import React from "react";
+import "./SignInForm.css"; // Make sure this path is correct based on your project structure
 
 const SignInForm = () => {
   return (
@@ -9,22 +9,44 @@ const SignInForm = () => {
           <h1 id="header-title">ALEXANDRIA</h1>
         </div>
         <h2 id="form-title">Sign in to your account</h2>
-        <p id="signup-link">Don't have an account? <a href="/hebdh">Sign up</a></p>{/*************Link must be changed********************/}
+        <p id="signup-link">
+          Don't have an account? <a href="/hebdh">Sign up</a>
+        </p>
         <form id="signin-form">
           <div id="username-group" className="input-group">
             <i className="fas fa-user"></i>
-            <input id="username-input" className="form-input input2" type="text" name="username" placeholder="Username" />
+            <input
+              id="username-input"
+              className="form-input input2"
+              type="text"
+              name="username"
+              placeholder="Username"
+            />
           </div>
           <div id="email-group" className="input-group">
             <i className="fas fa-envelope"></i>
-            <input id="email-input" className="form-input input2" type="email" name="email" placeholder="Email" />
+            <input
+              id="email-input"
+              className="form-input input2"
+              type="email"
+              name="email"
+              placeholder="Email"
+            />
           </div>
           <div id="password-group" className="input-group">
             <i className="fas fa-lock"></i>
-            <input id="password-input" className="form-input" type="password" name="password" placeholder="••••••••" />
+            <input
+              id="password-input"
+              className="form-input"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+            />
           </div>
           <div id="form-btn-cont" className="form-btn-cont">
-            <button id="signin-btn" className="form-btn">Sign in</button>
+            <button id="signin-btn" className="form-btn">
+              Sign in
+            </button>
           </div>
         </form>
       </div>

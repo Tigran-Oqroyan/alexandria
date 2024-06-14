@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
 #registration-container {
   max-width: 500px;
   width: 100%;
@@ -80,185 +84,84 @@
   font-family: "Montserrat", sans-serif;
 }
 
-/* .registration-form-box {
+#registration-yeargroup-wrapper {
+  width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  gap: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+#registration-year-input {
+  width: 96%;
+  font-family: "Montserrat", sans-serif;
+}
+
+#registration-group-input {
+  width: 96%;
+  font-family: "Montserrat", sans-serif;
+}
+
+#registration-univercity-wrapper {
   width: 100%;
-  gap: 25px;
+  font-family: "Montserrat", sans-serif;
 }
 
-.registration-form-btn-cont {
-  display: flex;
-  justify-content: end;
-}
-
-#registration-signup-form label {
-  display: none;
-}
-
-.registration-form-input {
-  width: 90%;
-  padding: 10px 10px 10px 30px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  transition:
-    box-shadow 0.3s ease-in-out,
-    border-color 0.3s ease-in-out;
-}
-
-.registration-form-select {
+#registration-univercity-choose-button {
   width: 100%;
-  padding: 10px 10px 10px 30px;
-  height: max-content;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  transition:
-    box-shadow 0.3s ease-in-out,
-    border-color 0.3s ease-in-out;
-}
-
-.registration-input2 {
-  width: 95%;
-}
-
-.registration-form-input:focus,
-.registration-form-select:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+  height: 45px;
+  border-radius: 7px;
+  border: none;
   outline: none;
+  color: black;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
 }
 
-.registration-input-group {
-  position: relative;
-  width: 48%;
+#registration-univercity-choose-button:hover {
+  background-color: rgb(213, 213, 213);
 }
 
-.registration-group2 {
-  width: 100%;
-}
-
-.registration-input-group i {
-  position: absolute;
-  top: 20px;
-  right: 0;
-  transform: translateY(-50%);
-  color: #888;
-}
-
-#registration-form-container {
-  flex: 1;
-  padding: 40px;
-}
-
-.registration-form-btn {
-  padding: 15px 25px;
-  width: max-content;
-  border-radius: 45px;
-}
-
-#registration-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  color: #e68c3a;
-}
-
-#registration-header-title {
-  margin: 0;
-  font-size: 24px;
-  font-family: "Audiowide", sans-serif;
-}
-
-#registration-header nav a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-}
-
-#registration-form-title {
-  font-size: 20px;
-  margin: 0 0 10px;
-  color: #123e60;
-}
-
-#registration-login-link {
-  margin: 0 0 20px;
-}
-
-#registration-signup-form {
+#registration-univercities-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-label {
-  margin-bottom: 5px;
-  font-weight: bold;
+#registration-univercities-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  border-radius: 7px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.5s ease,
+    opacity 0.5s ease;
 }
 
-input {
-  margin-bottom: 20px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#registration-create-account-btn {
-  padding: 10px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #213e60;
+#registration-sign-in-button {
+  align-self: flex-end;
+  width: 30%;
+  height: 45px;
+  margin: 20px 0;
+  border-radius: 7px;
   border: none;
-  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: rgb(221, 221, 221);
+  color: black;
   cursor: pointer;
+  transition: all 0.5s;
+  font-family: "Montserrat", sans-serif;
 }
 
-#registration-create-account-btn:hover {
-  background-color: #2d537a;
+#registration-sign-in-button:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
 }
-
-#registration-image-container {
-  flex: 1;
-  background: url("https://i.pinimg.com/564x/b1/5e/e5/b15ee58c29a2651e3fb7d6f152150f56.jpg")
-    no-repeat center center;
-  background-size: cover;
-}
-
-.registration-box2 {
-  gap: 20px;
-}
-
-.registration-box2 input {
-  width: 70%;
-} */
-
-/* @media only screen and (max-width: 768px) {
-  #registration-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #registration-form-container {
-    padding: 20px;
-  }
-
-  .registration-form-box {
-    flex-direction: column;
-  }
-
-  .registration-input-group {
-    width: 100%;
-  }
-
-  .registration-input-group i {
-    top: 10px;
-  }
-
-  .registration-box2 input {
-    width: 100%;
-  }
-} */

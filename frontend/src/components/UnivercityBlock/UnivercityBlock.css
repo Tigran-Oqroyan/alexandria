@@ -1,0 +1,9 @@
+#univercity-block-container{
+    padding: 5px;
+    padding-left: 30px ;
+    background-color: rgb(231, 231, 231);
+}
+
+#univercity-block-container:hover{
+    background-color: rgb(220, 220, 220);
+}

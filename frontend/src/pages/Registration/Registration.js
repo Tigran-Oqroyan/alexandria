@@ -23,13 +23,14 @@ const Registration = () => {
   const [isUOpen, setIsUOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword , setShowPassword] = useState(false);
 
   const wrapperRef = useRef(null);
 
   useEffect(() => {
     setIsUOpen(false);
     user.univercity = currentSelectedUniversity;
-  },[currentSelectedUniversity])
+  },[user ,currentSelectedUniversity])
 
   useEffect(() => {
     if (isUOpen) {
@@ -94,15 +95,10 @@ const Registration = () => {
   }
 
   const handleSubmit = async (e) => {
-    console.log("hello")
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
-      console.log(Object.keys(newErrors).length);
-      console.log("You have error");
       setErrors(newErrors);
-      console.log(newErrors);
     } else {
-      console.log('okey')
       setErrors({});
       setIsSubmitting(true);
       try {
@@ -116,6 +112,7 @@ const Registration = () => {
             username:user.username
           })
         }
+        user._id = user.username;
         await axios.post('http://localhost:5000/api/users', user);
         alert("Thank you for joining. We have registered you");
         setUser({
@@ -143,7 +140,7 @@ const Registration = () => {
     <div id="registration-container">
       <div id="registration-headers-wrapper">
         <h2 id="registration-app-name">ALEXANDRIA</h2>
-        <h2 id="registration-header">Log In</h2>
+        <h2 id="registration-header">Sign In</h2>
       </div>
       <hr id="separator" />
 
@@ -163,6 +160,7 @@ const Registration = () => {
           onChange={(e) => handleInputChange(e, "surname")}
         />
       </div>
+
       <div id="registration-error-wrapper">
         {errors.name && <span className="registration-error">{errors.name}</span>}
         {errors.surname && <span className="registration-error">{errors.surname}</span>}
@@ -183,24 +181,53 @@ const Registration = () => {
 
       <div id="registration-password_wrapper">
         <div id="registration-password-container">
-          <input
-            id="registration-password-input"
-            placeholder="Password ..."
-            type="text"
-            value={user.password}
-            onChange={(e) => handleInputChange(e, "password")}
-          />
-          <i id="registration-lock-icon" className='bx bxs-lock-alt'></i>
+          {showPassword ? 
+            <>
+              <input
+              id="registration-password-input"
+              placeholder="Password ..."
+              type="text"
+              value={user.password}
+              onChange={(e) => handleInputChange(e, "password")}
+              />
+              <i id="registration-lock-open-icon" onClick={()=>setShowPassword(!showPassword)} className='bx bxs-lock-alt'></i>
+            </> : 
+            <>
+              <input
+                id="registration-password-input"
+                placeholder="Password ..."
+                type="password"
+                value={user.password}
+                onChange={(e) => handleInputChange(e, "password")}
+              />
+              <i id="registration-lock-icon" onClick={()=>setShowPassword(!showPassword)} className='bx bxs-lock-alt'></i>
+            </>
+          }
+          
         </div>
         <div id="registration-repeatPassword-container">
-          <input
-            id="registration-repeat-password-input"
-            placeholder="Repeat it ..."
-            type="text"
-            value={user.repeatPassword}
-            onChange={(e) => handleInputChange(e, "repeatPassword")}
-          />
-          <i id="registration-lock-open-icon" className='bx bxs-lock-open-alt'></i>
+          {showPassword ? 
+            <>
+              <input
+                id="registration-repeat-password-input"
+                placeholder="Repeat it ..."
+                type="text"
+                value={user.repeatPassword}
+                onChange={(e) => handleInputChange(e, "repeatPassword")}
+              />
+              <i id="registration-lock-open-icon" className='bx bxs-lock-open-alt'></i>
+            </> : 
+            <>
+              <input
+                id="registration-repeat-password-input"
+                placeholder="Repeat it ..."
+                type="password"
+                value={user.repeatPassword}
+                onChange={(e) => handleInputChange(e, "repeatPassword")}
+              />
+              <i id="registration-lock-icon" className='bx bxs-lock-open-alt'></i>
+            </>
+          }
         </div>
       </div>
 

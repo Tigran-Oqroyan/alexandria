@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import UnivercityBlock from "../../components/UnivercityBlock/UnivercityBlock";
 import univercities from "../../utils/universities";
+import axios from 'axios';
 import "./Registration.css";
+import { useSelector } from "react-redux";
 
 const Registration = () => {
   const [user, setUser] = useState({
@@ -17,12 +19,17 @@ const Registration = () => {
     phone: "",
   });
 
-  const currentUnivercity = "Yerevan State University"; // Esi pti poxvi Redux
+  const currentSelectedUniversity = useSelector(state => state.currentSelectedUniversity);
   const [isUOpen, setIsUOpen] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // const [showPassword, setShowPassword] = useState(false);
   const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    setIsUOpen(false);
+    user.univercity = currentSelectedUniversity;
+  },[currentSelectedUniversity])
 
   useEffect(() => {
     if (isUOpen) {
@@ -42,47 +49,42 @@ const Registration = () => {
   const validate = () => {
     const newErrors = {};
 
-    // Validate name and surname
-    if(!user.name.trim()) newErrors.name = "Name is required";
-    if(!user.surname.trim()) newErrors.surname = "Surname is required";
+    if (!user.name.trim()) newErrors.name = "Name is required";
+    if (!user.surname.trim()) newErrors.surname = "Surname is required";
     
-    // Validate username
-    if(!user.username.trim()) newErrors.username = "Username is required";
+    if (!user.username.trim()) newErrors.username = "Username is required";
 
-    // Validate password 
     const passwordRegex = /^(?=(.*[a-z]){2,})(?=(.*[A-Z]){2,})(?=(.*[!@#$%^&*()\-__+.]){2,}).{6,}$/;
-    if(!user.password.trim()) {
+    if (!user.password.trim()) {
       newErrors.password = "Password is required";
-    }else if(!passwordRegex.test(user.password)) {
+    } else if (!passwordRegex.test(user.password)) {
       newErrors.password = "Password must include at least 2 lowercase, 2 uppercase, and 2 symbols";
     }
-    if(user.password !== user.repeatPassword) {
+    if (user.password !== user.repeatPassword) {
       newErrors.repeatPassword = "Passwords do not match";
     }
   
-    // Validate year
-
     const year = parseInt(user.year, 10);
     const date = new Date();
     const nowYear = date.getFullYear();
 
-    if(!user.year || isNaN(year) || year < 2000 || year > nowYear ) {
+    if (!user.year || isNaN(year) || year < 2000 || year > nowYear ) {
       newErrors.year = `Year must be between 2000 and ${nowYear}`;
     }
 
-    // Validate group
     if (!user.group.trim()) newErrors.group = "Group is required";
       
-    // Validate university
+    if(!user.univercity){
+      user.univercity = currentSelectedUniversity;
+    }
+
     if (!user.univercity.trim()) newErrors.univercity = "University is required";
     
-    // Validate email
     const emailRegex = /\S+@\S+\.\S+/;
     if (!user.email || !emailRegex.test(user.email)) {
       newErrors.email = "Invalid email";
     }
     
-    // Validate phone
     const phoneRegex = /^0\d{8}$/;
     if (!user.phone || !phoneRegex.test(user.phone)) {
       newErrors.phone = "Phone number must be 9 digits and start with a 0 (Armenian format)";
@@ -91,14 +93,49 @@ const Registration = () => {
     return newErrors;
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    console.log("hello")
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
+      console.log(Object.keys(newErrors).length);
+      console.log("You have error");
       setErrors(newErrors);
+      console.log(newErrors);
     } else {
+      console.log('okey')
       setErrors({});
-      alert("Thank you for joining. We have registered you");
+      setIsSubmitting(true);
+      try {
+        const response = await axios.get(`http://localhost:5000/api/usernames/${user.username}`);
+        if(response.data?.username){
+          alert("Username is alerady exists");
+          return;
+        }else{
+          await axios.post('http://localhost:5000/api/usernames', {
+            _id:user.username,
+            username:user.username
+          })
+        }
+        await axios.post('http://localhost:5000/api/users', user);
+        alert("Thank you for joining. We have registered you");
+        setUser({
+          name: "",
+          surname: "",
+          username: "",
+          password: "",
+          repeatPassword: "",
+          year: "",
+          group: "",
+          univercity: "",
+          email: "",
+          phone: "",
+        });
+      } catch (error) {
+        console.error("There was an error registering the user:", error);
+        alert("There was an error registering the user. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -153,7 +190,7 @@ const Registration = () => {
             value={user.password}
             onChange={(e) => handleInputChange(e, "password")}
           />
-          <i id="registration-lock-icon" class='bx bxs-lock-alt'></i>
+          <i id="registration-lock-icon" className='bx bxs-lock-alt'></i>
         </div>
         <div id="registration-repeatPassword-container">
           <input
@@ -163,7 +200,7 @@ const Registration = () => {
             value={user.repeatPassword}
             onChange={(e) => handleInputChange(e, "repeatPassword")}
           />
-          <i id="registration-lock-open-icon" class='bx bxs-lock-open-alt'></i>
+          <i id="registration-lock-open-icon" className='bx bxs-lock-open-alt'></i>
         </div>
       </div>
 
@@ -200,7 +237,7 @@ const Registration = () => {
             setIsUOpen(!isUOpen);
           }}
         >
-          {currentUnivercity}
+          {currentSelectedUniversity}
         </button>
         <div id="registration-univercities-wrapper" ref={wrapperRef}>
           {univercities.map((univercity, index) => {
@@ -218,7 +255,7 @@ const Registration = () => {
             value={user.email}
             onChange={(e) => handleInputChange(e, "email")}
           />
-          <i id="registration-email-icon" class='bx bxs-envelope' ></i>
+          <i id="registration-email-icon" className='bx bxs-envelope' ></i>
         </div>
         <div id="registration-phone-container">
           <input
@@ -228,10 +265,10 @@ const Registration = () => {
             value={user.phone}
             onChange={(e) => handleInputChange(e, "phone")}
           />
-          <i id="registration-phone-icon" class='bx bxs-phone' ></i>
+          <i id="registration-phone-icon" className='bx bxs-phone' ></i>
         </div>
       </div>
-      
+
       <div id="registration-error-wrapper">
         {errors.email && <span className="registration-error">{errors.email}</span>}
         {errors.phone && <span className="registration-error">{errors.phone}</span>}
@@ -240,7 +277,7 @@ const Registration = () => {
       <button
         id="registration-sign-in-button"
         onClick={(e) => {
-          handleSubmit(e);
+          if (!isSubmitting) handleSubmit(e);
         }}
       >
         Sign In

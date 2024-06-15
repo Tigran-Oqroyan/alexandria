@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 const UserScheme = mongoose.Schema(
     {
-        _id:{
-            type:Number,
-            require:[true]
-        },
         name:{
             type:String,
             require:[true]
@@ -26,7 +22,7 @@ const UserScheme = mongoose.Schema(
             type:String,
             require:[true]
         },
-        university:{
+        univercity:{
             type:String,
             require:[true]
         },

@@ -61,9 +61,23 @@
   font-family: "Montserrat", sans-serif;
 }
 
+#registration-username-container {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
 #registration-username-input {
   width: 96%;
   font-family: "Montserrat", sans-serif;
+  padding-right: 60px;
+}
+
+#registration-user-icon {
+  position: absolute;
+  top: 13%;
+  right: 3%;
+  font-size: 25px;
 }
 
 #registration-password_wrapper {
@@ -74,14 +88,27 @@
   font-family: "Montserrat", sans-serif;
 }
 
-#registration-password-input {
-  width: 96%;
-  font-family: "Montserrat", sans-serif;
+#registration-password-container,
+#registration-repeatPassword-container {
+  width: 50%;
+  position: relative;
 }
 
-#registration-repeat-password {
-  width: 96%;
+#registration-password-input,
+#registration-repeat-password-input {
+  width: 100%;
   font-family: "Montserrat", sans-serif;
+  padding-right: 55px; /* Adjusted for better alignment */
+  box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+}
+
+#registration-lock-icon,
+#registration-lock-open-icon {
+  position: absolute;
+  top: 12%;
+  right: 6%; /* Adjusted for better alignment */
+  font-size: 25px; /* Adjusted for better alignment */
+  pointer-events: none; /* Prevents the icon from being interactive */
 }
 
 #registration-yeargroup-wrapper {
@@ -139,9 +166,7 @@
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition:
-    max-height 0.5s ease,
-    opacity 0.5s ease;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
 }
 
 #registration-sign-in-button {
@@ -166,7 +191,7 @@
   color: white;
 }
 
-#registration-emailphone-wrapper{
+#registration-emailphone-wrapper {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -175,12 +200,53 @@
   margin-top: 10px;
 }
 
-#registration-email-input{
-  width: 96%;
-  font-family: "Montserrat", sans-serif;
+#registration-email-container,
+#registration-phone-container {
+  width: 50%;
+  position: relative;
 }
 
-#registration-phone-input{
-  width: 96%;
+#registration-email-icon,
+#registration-phone-icon {
+  position: absolute;
+  top: 12%;
+  right: 6%; /* Adjusted for better alignment */
+  font-size: 25px; /* Adjusted for better alignment */
+  pointer-events: none;
+}
+
+#registration-email-input {
+  width: 100%;
   font-family: "Montserrat", sans-serif;
+  padding-right: 55px;
+  box-sizing: border-box;
+}
+
+#registration-phone-input {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  padding-right: 55px;
+  box-sizing: border-box;
+}
+
+#registration-error-wrapper {
+  width: 100%;
+  display: flex;
+  gap: 15px;
+}
+
+.registration-error {
+  color: rgb(255, 122, 122);
+  margin-top: -15px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  width: 50%;
+}
+
+.username-registration-error {
+  color: rgb(255, 122, 122);
+  margin-top: -15px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  width: 100%;
 }

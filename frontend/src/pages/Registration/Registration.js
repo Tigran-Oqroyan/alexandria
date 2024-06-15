@@ -19,6 +19,8 @@ const Registration = () => {
 
   const currentUnivercity = "Yerevan State University"; // Esi pti poxvi Redux
   const [isUOpen, setIsUOpen] = useState(false);
+  const [errors, setErrors] = useState({});
+
   // const [showPassword, setShowPassword] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -37,10 +39,69 @@ const Registration = () => {
     setUser((prevInfo) => ({ ...prevInfo, [field]: value }));
   };
 
+  const validate = () => {
+    const newErrors = {};
+
+    // Validate name and surname
+    if(!user.name.trim()) newErrors.name = "Name is required";
+    if(!user.surname.trim()) newErrors.surname = "Surname is required";
+    
+    // Validate username
+    if(!user.username.trim()) newErrors.username = "Username is required";
+
+    // Validate password 
+    const passwordRegex = /^(?=(.*[a-z]){2,})(?=(.*[A-Z]){2,})(?=(.*[!@#$%^&*()\-__+.]){2,}).{6,}$/;
+    if(!user.password.trim()) {
+      newErrors.password = "Password is required";
+    }else if(!passwordRegex.test(user.password)) {
+      newErrors.password = "Password must include at least 2 lowercase, 2 uppercase, and 2 symbols";
+    }
+    if(user.password !== user.repeatPassword) {
+      newErrors.repeatPassword = "Passwords do not match";
+    }
+  
+    // Validate year
+
+    const year = parseInt(user.year, 10);
+    const date = new Date();
+    const nowYear = date.getFullYear();
+
+    if(!user.year || isNaN(year) || year < 2000 || year > nowYear ) {
+      newErrors.year = `Year must be between 2000 and ${nowYear}`;
+    }
+
+    // Validate group
+    if (!user.group.trim()) newErrors.group = "Group is required";
+      
+    // Validate university
+    if (!user.univercity.trim()) newErrors.univercity = "University is required";
+    
+    // Validate email
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!user.email || !emailRegex.test(user.email)) {
+      newErrors.email = "Invalid email";
+    }
+    
+    // Validate phone
+    const phoneRegex = /^0\d{8}$/;
+    if (!user.phone || !phoneRegex.test(user.phone)) {
+      newErrors.phone = "Phone number must be 9 digits and start with a 0 (Armenian format)";
+    }
+
+    return newErrors;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you for joinign we have registered you")
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      setErrors({});
+      alert("Thank you for joining. We have registered you");
+    }
   };
+
   return (
     <div id="registration-container">
       <div id="registration-headers-wrapper">
@@ -55,7 +116,6 @@ const Registration = () => {
           placeholder="Name ..."
           type="text"
           value={user.name}
-          required
           onChange={(e) => handleInputChange(e, "name")}
         />
         <input
@@ -63,46 +123,61 @@ const Registration = () => {
           placeholder="Surname ..."
           type="text"
           value={user.surname}
-          required
           onChange={(e) => handleInputChange(e, "surname")}
         />
       </div>
-
-      <input
-        id="registration-username-input"
-        placeholder="Username ..."
-        type="text"
-        value={user.username}
-        required
-        onChange={(e) => handleInputChange(e, "username")}
-      />
-
-      <div id="registration-password_wrapper">
+      <div id="registration-error-wrapper">
+        {errors.name && <span className="registration-error">{errors.name}</span>}
+        {errors.surname && <span className="registration-error">{errors.surname}</span>}
+      </div>
+      
+      <div id="registration-username-container" className="input-container">
         <input
-          id="registration-password-input"
-          placeholder="Password ..."
+          id="registration-username-input"
+          placeholder="Username ..."
           type="text"
-          value={user.password}
-          required
-          onChange={(e) => handleInputChange(e, "password")}
+          value={user.username}
+          onChange={(e) => handleInputChange(e, "username")}
         />
-        <input
-          id="registration-repeat-password"
-          placeholder="Repeat it ..."
-          type="text"
-          value={user.repeatPassword}
-          required
-          onChange={(e) => handleInputChange(e, "repeatPassword")}
-        />
+        <i id="registration-user-icon" className='bx bxs-user'></i>
       </div>
 
+      {errors.username && <span className="username-registration-error">{errors.username}</span>}
+
+      <div id="registration-password_wrapper">
+        <div id="registration-password-container">
+          <input
+            id="registration-password-input"
+            placeholder="Password ..."
+            type="text"
+            value={user.password}
+            onChange={(e) => handleInputChange(e, "password")}
+          />
+          <i id="registration-lock-icon" class='bx bxs-lock-alt'></i>
+        </div>
+        <div id="registration-repeatPassword-container">
+          <input
+            id="registration-repeat-password-input"
+            placeholder="Repeat it ..."
+            type="text"
+            value={user.repeatPassword}
+            onChange={(e) => handleInputChange(e, "repeatPassword")}
+          />
+          <i id="registration-lock-open-icon" class='bx bxs-lock-open-alt'></i>
+        </div>
+      </div>
+
+      <div id="registration-error-wrapper">
+        {errors.password && <span className="registration-error">{errors.password}</span>}
+        {errors.repeatPassword && <span className="registration-error">{errors.repeatPassword}</span>}
+      </div>
+      
       <div id="registration-yeargroup-wrapper">
         <input
           id="registration-year-input"
           placeholder="Year ..."
           type="text"
           value={user.year}
-          required
           onChange={(e) => handleInputChange(e, "year")}
         />
         <input
@@ -110,11 +185,14 @@ const Registration = () => {
           placeholder="Group ..."
           type="text"
           value={user.group}
-          required
           onChange={(e) => handleInputChange(e, "group")}
         />
       </div>
-
+      <div id="registration-error-wrapper">
+        {errors.year && <span className="registration-error">{errors.year}</span>}
+        {errors.group && <span className="registration-error">{errors.group}</span>}
+      </div>
+      
       <div id="registration-univercity-wrapper">
         <button
           id="registration-univercity-choose-button"
@@ -123,7 +201,6 @@ const Registration = () => {
           }}
         >
           {currentUnivercity}
-          {/* Icon can be added here to indicate dropdown state */}
         </button>
         <div id="registration-univercities-wrapper" ref={wrapperRef}>
           {univercities.map((univercity, index) => {
@@ -133,24 +210,33 @@ const Registration = () => {
       </div>
 
       <div id="registration-emailphone-wrapper">
-        <input
-          id="registration-email-input"
-          placeholder="Email ..."
-          type="text"
-          value={user.email}
-          required
-          onChange={(e) => handleInputChange(e, "email")}
-        />
-        <input
-          id="registration-phone-input"
-          placeholder="Phone ..."
-          type="text"
-          value={user.phone}
-          required
-          onChange={(e) => handleInputChange(e, "phone")}
-        />
+        <div id="registration-email-container">
+          <input
+            id="registration-email-input"
+            placeholder="Email ..."
+            type="text"
+            value={user.email}
+            onChange={(e) => handleInputChange(e, "email")}
+          />
+          <i id="registration-email-icon" class='bx bxs-envelope' ></i>
+        </div>
+        <div id="registration-phone-container">
+          <input
+            id="registration-phone-input"
+            placeholder="Phone ..."
+            type="text"
+            value={user.phone}
+            onChange={(e) => handleInputChange(e, "phone")}
+          />
+          <i id="registration-phone-icon" class='bx bxs-phone' ></i>
+        </div>
       </div>
-
+      
+      <div id="registration-error-wrapper">
+        {errors.email && <span className="registration-error">{errors.email}</span>}
+        {errors.phone && <span className="registration-error">{errors.phone}</span>}
+      </div>
+      
       <button
         id="registration-sign-in-button"
         onClick={(e) => {

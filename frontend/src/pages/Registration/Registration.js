@@ -4,6 +4,7 @@ import univercities from "../../utils/universities";
 import axios from 'axios';
 import "./Registration.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const [user, setUser] = useState({
@@ -18,18 +19,19 @@ const Registration = () => {
     email: "",
     phone: "",
   });
-
+  const navigate = useNavigate();
   const currentSelectedUniversity = useSelector(state => state.currentSelectedUniversity);
   const [isUOpen, setIsUOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const wrapperRef = useRef(null);
 
   useEffect(() => {
     setIsUOpen(false);
     user.univercity = currentSelectedUniversity;
-  },[currentSelectedUniversity])
+  },[user ,currentSelectedUniversity])
 
   useEffect(() => {
     if (isUOpen) {
@@ -94,15 +96,10 @@ const Registration = () => {
   }
 
   const handleSubmit = async (e) => {
-    console.log("hello")
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
-      console.log(Object.keys(newErrors).length);
-      console.log("You have error");
       setErrors(newErrors);
-      console.log(newErrors);
     } else {
-      console.log('okey')
       setErrors({});
       setIsSubmitting(true);
       try {
@@ -116,6 +113,7 @@ const Registration = () => {
             username:user.username
           })
         }
+        user._id = user.username;
         await axios.post('http://localhost:5000/api/users', user);
         alert("Thank you for joining. We have registered you");
         setUser({
@@ -130,11 +128,14 @@ const Registration = () => {
           email: "",
           phone: "",
         });
+        navigate('/SignIn');
       } catch (error) {
         console.error("There was an error registering the user:", error);
         alert("There was an error registering the user. Please try again.");
+        return;
       } finally {
         setIsSubmitting(false);
+        return;
       }
     }
   };
@@ -143,7 +144,7 @@ const Registration = () => {
     <div id="registration-container">
       <div id="registration-headers-wrapper">
         <h2 id="registration-app-name">ALEXANDRIA</h2>
-        <h2 id="registration-header">Log In</h2>
+        <h2 onClick={()=> navigate('/SignIn')} id="registration-header">Sign In</h2>
       </div>
       <hr id="separator" />
 
@@ -163,6 +164,7 @@ const Registration = () => {
           onChange={(e) => handleInputChange(e, "surname")}
         />
       </div>
+
       <div id="registration-error-wrapper">
         {errors.name && <span className="registration-error">{errors.name}</span>}
         {errors.surname && <span className="registration-error">{errors.surname}</span>}
@@ -186,23 +188,32 @@ const Registration = () => {
           <input
             id="registration-password-input"
             placeholder="Password ..."
-            type="text"
+            type={showPassword ? "text" : "password"}
             value={user.password}
             onChange={(e) => handleInputChange(e, "password")}
           />
-          <i id="registration-lock-icon" className='bx bxs-lock-alt'></i>
+          <i
+            id="registration-lock-icon"
+            onClick={() => { console.log("clicked") ; setShowPassword(!showPassword)}}
+            className={showPassword ? 'bx bxs-lock-open-alt' : 'bx bxs-lock-alt'}
+          ></i>
         </div>
         <div id="registration-repeatPassword-container">
           <input
             id="registration-repeat-password-input"
             placeholder="Repeat it ..."
-            type="text"
+            type={showPassword ? "text" : "password"}
             value={user.repeatPassword}
             onChange={(e) => handleInputChange(e, "repeatPassword")}
           />
-          <i id="registration-lock-open-icon" className='bx bxs-lock-open-alt'></i>
+          <i
+            id="registration-lock-icon"
+            onClick={() => setShowPassword(!showPassword)}
+            className={showPassword ? 'bx bxs-lock-open-alt' : 'bx bxs-lock-alt'}
+          ></i>
         </div>
       </div>
+
 
       <div id="registration-error-wrapper">
         {errors.password && <span className="registration-error">{errors.password}</span>}
@@ -280,7 +291,7 @@ const Registration = () => {
           if (!isSubmitting) handleSubmit(e);
         }}
       >
-        Sign In
+        Register
       </button>
     </div>
   );

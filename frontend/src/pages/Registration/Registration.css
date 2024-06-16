@@ -43,7 +43,6 @@
 }
 
 #registration-name-surname-wrapper {
-  margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -52,11 +51,23 @@
 }
 
 #registration-name-input {
+  padding: 15px 20px;
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+  font-size: 17px;
   width: 50%;
   font-family: "Montserrat", sans-serif;
 }
 
 #registration-surname-input {
+  padding: 15px 20px;
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+  font-size: 17px;
   width: 50%;
   font-family: "Montserrat", sans-serif;
 }
@@ -68,14 +79,20 @@
 }
 
 #registration-username-input {
+  padding: 15px 20px;
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
   width: 96%;
+  font-size: 17px;
   font-family: "Montserrat", sans-serif;
   padding-right: 60px;
 }
 
 #registration-user-icon {
   position: absolute;
-  top: 13%;
+  top: 40%;
   right: 3%;
   font-size: 25px;
 }
@@ -98,17 +115,23 @@
 #registration-repeat-password-input {
   width: 100%;
   font-family: "Montserrat", sans-serif;
-  padding-right: 55px; /* Adjusted for better alignment */
-  box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+  box-sizing: border-box; 
+  padding: 15px 20px;
+  padding-right: 55px; 
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+  font-size: 17px;
 }
 
 #registration-lock-icon,
 #registration-lock-open-icon {
+  cursor: pointer;
   position: absolute;
-  top: 12%;
+  top: 40%;
   right: 6%; /* Adjusted for better alignment */
   font-size: 25px; /* Adjusted for better alignment */
-  pointer-events: none; /* Prevents the icon from being interactive */
 }
 
 #registration-yeargroup-wrapper {
@@ -120,23 +143,38 @@
 }
 
 #registration-year-input {
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+  height: 10px;
+  font-size: 17px;
   width: 96%;
   font-family: "Montserrat", sans-serif;
 }
 
 #registration-group-input {
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+  height: 10px;
+  font-size: 17px;
   width: 96%;
   font-family: "Montserrat", sans-serif;
 }
 
 #registration-univercity-wrapper {
+  margin-top: 20px;
   width: 100%;
   font-family: "Montserrat", sans-serif;
 }
 
 #registration-univercity-choose-button {
   width: 100%;
-  height: 45px;
+  height: 55px;
   border-radius: 7px;
   border: none;
   outline: none;
@@ -197,7 +235,6 @@
   justify-content: space-between;
   gap: 10px;
   font-family: "Montserrat", sans-serif;
-  margin-top: 10px;
 }
 
 #registration-email-container,
@@ -209,24 +246,35 @@
 #registration-email-icon,
 #registration-phone-icon {
   position: absolute;
-  top: 12%;
-  right: 6%; /* Adjusted for better alignment */
-  font-size: 25px; /* Adjusted for better alignment */
-  pointer-events: none;
+  top: 40%;
+  right: 6%; 
+  font-size: 25px; 
 }
 
 #registration-email-input {
   width: 100%;
   font-family: "Montserrat", sans-serif;
-  padding-right: 55px;
   box-sizing: border-box;
+  padding: 15px 20px;
+  padding-right: 55px;
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+  font-size: 17px;
 }
 
 #registration-phone-input {
   width: 100%;
   font-family: "Montserrat", sans-serif;
-  padding-right: 55px;
   box-sizing: border-box;
+  padding: 15px 20px;
+  padding-right: 55px;
+  margin-top: 15px;
+  border-radius: 7px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+  font-size: 17px;
 }
 
 #registration-error-wrapper {
@@ -237,16 +285,14 @@
 
 .registration-error {
   color: rgb(255, 122, 122);
-  margin-top: -15px;
-  margin-bottom: 10px;
+  margin-top: 5px;
   font-weight: 500;
   width: 50%;
 }
 
 .username-registration-error {
   color: rgb(255, 122, 122);
-  margin-top: -15px;
-  margin-bottom: 10px;
+  margin-top: 5px;
   font-weight: 500;
   width: 100%;
 }

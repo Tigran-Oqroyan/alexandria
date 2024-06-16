@@ -117,6 +117,7 @@
   top: 40%;
   right: 3%;
   font-size: 25px;
+  cursor: pointer;
 }
 
 #signIn-lock-open-icon{
@@ -124,6 +125,7 @@
   top: 40%;
   right: 3%;
   font-size: 25px;
+  cursor: pointer;
 }
 
 #signIn-btn{

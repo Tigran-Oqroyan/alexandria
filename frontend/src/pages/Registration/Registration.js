@@ -4,6 +4,7 @@ import univercities from "../../utils/universities";
 import axios from 'axios';
 import "./Registration.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const [user, setUser] = useState({
@@ -18,12 +19,12 @@ const Registration = () => {
     email: "",
     phone: "",
   });
-
+  const navigate = useNavigate();
   const currentSelectedUniversity = useSelector(state => state.currentSelectedUniversity);
   const [isUOpen, setIsUOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword , setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const wrapperRef = useRef(null);
 
@@ -127,11 +128,14 @@ const Registration = () => {
           email: "",
           phone: "",
         });
+        navigate('/SignIn');
       } catch (error) {
         console.error("There was an error registering the user:", error);
         alert("There was an error registering the user. Please try again.");
+        return;
       } finally {
         setIsSubmitting(false);
+        return;
       }
     }
   };
@@ -140,7 +144,7 @@ const Registration = () => {
     <div id="registration-container">
       <div id="registration-headers-wrapper">
         <h2 id="registration-app-name">ALEXANDRIA</h2>
-        <h2 id="registration-header">Sign In</h2>
+        <h2 onClick={()=> navigate('/SignIn')} id="registration-header">Sign In</h2>
       </div>
       <hr id="separator" />
 
@@ -181,55 +185,35 @@ const Registration = () => {
 
       <div id="registration-password_wrapper">
         <div id="registration-password-container">
-          {showPassword ? 
-            <>
-              <input
-              id="registration-password-input"
-              placeholder="Password ..."
-              type="text"
-              value={user.password}
-              onChange={(e) => handleInputChange(e, "password")}
-              />
-              <i id="registration-lock-open-icon" onClick={()=>setShowPassword(!showPassword)} className='bx bxs-lock-alt'></i>
-            </> : 
-            <>
-              <input
-                id="registration-password-input"
-                placeholder="Password ..."
-                type="password"
-                value={user.password}
-                onChange={(e) => handleInputChange(e, "password")}
-              />
-              <i id="registration-lock-icon" onClick={()=>setShowPassword(!showPassword)} className='bx bxs-lock-alt'></i>
-            </>
-          }
-          
+          <input
+            id="registration-password-input"
+            placeholder="Password ..."
+            type={showPassword ? "text" : "password"}
+            value={user.password}
+            onChange={(e) => handleInputChange(e, "password")}
+          />
+          <i
+            id="registration-lock-icon"
+            onClick={() => { console.log("clicked") ; setShowPassword(!showPassword)}}
+            className={showPassword ? 'bx bxs-lock-open-alt' : 'bx bxs-lock-alt'}
+          ></i>
         </div>
         <div id="registration-repeatPassword-container">
-          {showPassword ? 
-            <>
-              <input
-                id="registration-repeat-password-input"
-                placeholder="Repeat it ..."
-                type="text"
-                value={user.repeatPassword}
-                onChange={(e) => handleInputChange(e, "repeatPassword")}
-              />
-              <i id="registration-lock-open-icon" className='bx bxs-lock-open-alt'></i>
-            </> : 
-            <>
-              <input
-                id="registration-repeat-password-input"
-                placeholder="Repeat it ..."
-                type="password"
-                value={user.repeatPassword}
-                onChange={(e) => handleInputChange(e, "repeatPassword")}
-              />
-              <i id="registration-lock-icon" className='bx bxs-lock-open-alt'></i>
-            </>
-          }
+          <input
+            id="registration-repeat-password-input"
+            placeholder="Repeat it ..."
+            type={showPassword ? "text" : "password"}
+            value={user.repeatPassword}
+            onChange={(e) => handleInputChange(e, "repeatPassword")}
+          />
+          <i
+            id="registration-lock-icon"
+            onClick={() => setShowPassword(!showPassword)}
+            className={showPassword ? 'bx bxs-lock-open-alt' : 'bx bxs-lock-alt'}
+          ></i>
         </div>
       </div>
+
 
       <div id="registration-error-wrapper">
         {errors.password && <span className="registration-error">{errors.password}</span>}
@@ -307,7 +291,7 @@ const Registration = () => {
           if (!isSubmitting) handleSubmit(e);
         }}
       >
-        Sign In
+        Register
       </button>
     </div>
   );

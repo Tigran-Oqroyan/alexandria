@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+#dashboard-sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #f4f2ef;
+  height: 100%;
+  width: 300px;
+}
+
+#dashboard-logo{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#dashboard-logo-name{
+  color: black;
+  font-size: 22px;
+  font-weight: 800;
+  font-family: 'Audiowide', sans-serif;
+}
+
+#dashboard-nav-links{
+  height: 100%;
+  padding-top: 30px;
+}
+
+#dashboard-nav-link{
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+
+#dashboard-nav-link:hover{
+  background: #d6d5d2;
+}
+
+#dashboard-nav-link .icon-links{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#dashboard-nav-link i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px; 
+  color: #213e60;
+  font-size: 25px;
+}
+
+#dashboard-nav-link a{
+  text-decoration: none;
+  display: flex;
+  align-items: center; 
+}
+
+#dashboard-nav-link .link-name{
+  color: #213e60;
+  font-weight: 500;
+} 
+
+#universities-sub-menu{
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background:  #d6d5d2;
+  display: none;
+}
+
+#universities-sub-menu a{
+  color: #213e60;
+  font-size: 15px;
+  padding: 5px;
+  cursor: pointer;
+}
+

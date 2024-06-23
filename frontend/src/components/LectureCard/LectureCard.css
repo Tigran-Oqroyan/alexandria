@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+#lecture-card {
+  position: relative;
+  width: 320px;
+  height: 400px;
+  /*   background: blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#lecture-card-image {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #f00;
+  border-radius: 15px;
+  background: url("https://i.pinimg.com/564x/73/65/23/736523feeda0d55a6983de8e9b381309.jpg");
+  background-size: cover;
+}
+
+#lecture-card-image::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: -10px 10px 0 #fff;
+}
+
+#lecture-card-image::after {
+  content: "";
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: -10px 10px 0 #fff;
+}
+
+#lecture-card-content {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  background: #ccc;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+  padding: 0 20px;
+}
+
+#lecture-card-name {
+  position: absolute;
+  top: -80px;
+  left: 0;
+  height: 80px;
+  background: #ccc;
+  width: 50%;
+  border-top: 10px solid #fff;
+  border-right: 10px solid #fff;
+  border-top-right-radius: 25px;
+}
+
+#lecture-card-name a {
+  position: relative;
+  background: #fff;
+  padding: 10px 15px;
+  margin: 15px 15px;
+  display: block;
+  border-radius: 7px;
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
+#lecture-card-info {
+  color: black;
+  padding-top: 10px;
+}
+
+#lecture-card-title,
+#lecture-card-user-description,
+#lecture-card-date{
+  list-style-type: none;
+}
+
+#lecture-card-title {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+#lecture-card-date {
+  margin-top: 10px;
+  padding: 10px;
+  background: white;
+  width: 110px;
+  height: 40px;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+#lecture-card-date:hover {
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+
+#lecture-card-name::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: -10px -10px 0 #fff;
+}
+
+#lecture-card-name::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: -25px;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: -10px 10px 0 #ccc;
+}

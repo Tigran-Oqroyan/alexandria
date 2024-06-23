@@ -1,6 +1,8 @@
 import React from "react";
 import "./Dashboard.css";
 import { useParams } from "react-router-dom";
+import univercities from "../../utils/universities";
+import UnivercityDashboardBlock from "../../components/UnivercityDashboardBlock/UnivercityDashboardBlock";
 
 const Dashboard = () => {
   const { id } = useParams();
@@ -22,25 +24,9 @@ const Dashboard = () => {
           </div>
 
           <ul id="universities-sub-menu">
-            <li>
-              <a href="">Yerevan State University</a>
-            </li>
-            <li>
-              <a href="">
-                National University of Architecture and Construction of Armenia
-              </a>
-            </li>
-            <li>
-              <a href="">Yerevan State Medical University</a>
-            </li>
-            <li>
-              <a href="">Armenian State Pedagogical University</a>
-            </li>
-            <li>
-              <a href="">
-                National University of Architecture and Construction of Armenia
-              </a>
-            </li>
+            {univercities.map(univercity => {
+              <UnivercityDashboardBlock univercityName={univercity}/>
+            })}
           </ul>
         </li>
 

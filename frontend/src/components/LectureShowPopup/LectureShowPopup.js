@@ -57,7 +57,7 @@ const LectureShowPopup = ({ currLecture, setPopup }) => {
           <h2>{currLecture.username}</h2>
         </div>
         <div id="desc-div">{currLecture.description}</div>
-        <button onClick={downloadPdf}>Download Description as PDF</button>
+        <i id="popup-pdf-btn" onClick={downloadPdf} class='bx bxs-file-pdf'></i>
       </div>
     </div>
   );

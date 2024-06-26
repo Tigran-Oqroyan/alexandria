@@ -103,20 +103,20 @@
 }
 
 #lecture-card-date {
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 10px;
   background: white;
   width: 110px;
-  height: 40px;
   border-radius: 8px;
   text-align: center;
   transition: all 0.3s ease;
+  cursor: pointer;
+  align-self: flex-end;
 }
 
 #lecture-card-date:hover {
-  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  
 }
 
 #lecture-card-name::before {

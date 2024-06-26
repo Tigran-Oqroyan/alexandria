@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Dashboard.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import universities from "../../utils/universities";
 import categories from "../../utils/categories";
 import UnivercityDashboardBlock from "../../components/UnivercityDashboardBlock/UnivercityDashboardBlock";
@@ -13,12 +13,14 @@ import { changeSelectedDashboardCategory } from "../../store/Slices/SelectedDash
 import { changeSelectedDashboardUniversity } from "../../store/Slices/SelectedDashboardUniversitySlice";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
+  
   const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [lecturesAmount , setLecturesAmount] = useState(0);
+  const [lecturesAmount, setLecturesAmount] = useState(0);
   const [allLectures, setAllLectures] = useState([]);
-  const [filteredLectures , setFilteredLectures] = useState(allLectures);
+  const [filteredLectures, setFilteredLectures] = useState(allLectures);
   const [currentUser, setCurrentUser] = useState({});
   const [lecturePopup, setLecturePopup] = useState(false);
   const [lectureShowPoup, setLectureShowPoup] = useState(false);
@@ -28,7 +30,6 @@ const Dashboard = () => {
     categories: false,
   });
 
-
   const currentDashboardUniversity = useSelector(
     (state) => state.currentDashboardUniversity
   );
@@ -36,7 +37,9 @@ const Dashboard = () => {
     (state) => state.currentDashboardCategory
   );
 
-
+  const handleUserPage = () => {
+    navigate(`/UserPage/${id}`);
+  }
 
   const getAllLectures = async () => {
     try {
@@ -67,15 +70,15 @@ const Dashboard = () => {
     });
 
     setFilteredLectures(filteredLectures);
-  };  
+  };
 
   useEffect(() => {
     console.log("entered");
     const fetchData = async () => {
       await getAllLectures();
-    }
+    };
     fetchData();
-  },[])
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +93,6 @@ const Dashboard = () => {
       }
     };
     fetchData();
-
   }, [id]);
 
   useEffect(() => {
@@ -134,7 +136,11 @@ const Dashboard = () => {
             <div className="icon-links">
               <a>
                 <i className="bx bx-buildings"></i>
-                <span className="link-name">{currentDashboardUniversity ? currentDashboardUniversity : "Select University"}</span>
+                <span className="link-name">
+                  {currentDashboardUniversity
+                    ? currentDashboardUniversity
+                    : "Select University"}
+                </span>
               </a>
               <i className="bx bx-chevron-down"></i>
             </div>
@@ -164,7 +170,11 @@ const Dashboard = () => {
             <div className="icon-links">
               <a>
                 <i className="bx bx-category"></i>
-                <span className="link-name">{currentDashboardCategory ? currentDashboardCategory : "Select Category"}</span>
+                <span className="link-name">
+                  {currentDashboardCategory
+                    ? currentDashboardCategory
+                    : "Select Category"}
+                </span>
               </a>
               <i className="bx bx-chevron-down"></i>
             </div>
@@ -184,7 +194,9 @@ const Dashboard = () => {
           ) : null}
         </ul>
 
-        <div id="dashboard-user-circle">U</div>
+        <div id="dashboard-user-circle" onClick={handleUserPage}>
+          {currentUser?.name?.substring(0, 1).toUpperCase()}
+        </div>
         <i
           id="dashboard-plus-icon"
           className="bx bx-plus"
@@ -193,9 +205,8 @@ const Dashboard = () => {
           }}
         ></i>
       </div>
-      {filteredLectures.length > 0 ? 
-      <div id="dashboard-content">
-          
+      {filteredLectures.length > 0 ? (
+        <div id="dashboard-content">
           {filteredLectures?.map((lecture, index) => {
             return (
               <LectureCard
@@ -210,8 +221,19 @@ const Dashboard = () => {
             );
           })}
         </div>
-      : <div id="dashboard-content">There is no lectures yet . Find / Add them !</div> }
-      {lecturePopup ? <LecturePopup currentUser={currentUser} id={lecturesAmount + 1} setLecturePopup={setLecturePopup} addNewLecture={addNewLecture}/> : null}
+      ) : (
+        <div id="dashboard-content">
+          There is no lectures yet . Find / Add them !
+        </div>
+      )}
+      {lecturePopup ? (
+        <LecturePopup
+          currentUser={currentUser}
+          id={lecturesAmount + 1}
+          setLecturePopup={setLecturePopup}
+          addNewLecture={addNewLecture}
+        />
+      ) : null}
     </div>
   );
 };

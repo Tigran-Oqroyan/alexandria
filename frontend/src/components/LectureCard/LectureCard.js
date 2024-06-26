@@ -40,11 +40,11 @@ const LectureCard = ({
               setPopup(true);
             }}
           >
-            {lectureName}
+            Lecture
           </a>
         </span>
         <ul id="lecture-card-info">
-          <li id="lecture-card-title">{lectureTitle}</li>
+          <li id="lecture-card-title"> {lectureTitle?.length > 15 ? lectureTitle?.substring(0 ,15) + "..." : lectureTitle}</li>
           <li id="lecture-card-user-description">
             {studentName} {studentSurname}
           </li>

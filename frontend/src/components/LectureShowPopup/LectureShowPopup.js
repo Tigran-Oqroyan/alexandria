@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./LectureShowPopup.css";
-import { Page, Text, View, Document, StyleSheet, pdf } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  pdf,
+} from "@react-pdf/renderer";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const LectureShowPopup = ({ currLecture, setPopup }) => {
+  const {id} = useParams();
+  console.log(id);
+  const [currentUser , setCurrentUser] = useState({});
+
+  useEffect(()=>{
+    const fetchData = async() => {
+      const resp = await axios.get(`http://localhost:5000/api/users/${id}`);
+      setCurrentUser(resp?.data);
+    }
+   fetchData();
+  },[])
+
   const styles = StyleSheet.create({
     page: {
       flexDirection: "row",
@@ -40,7 +61,20 @@ const LectureShowPopup = ({ currLecture, setPopup }) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setPopup(false);
   };
+
+  const likeLecture = async () => {
+    if(!currentUser?.lectures?.includes(currLecture._id)){
+      console.log(currentUser);
+      currentUser?.lectures?.push(currLecture._id);
+      console.log("ddddd" , currentUser);
+      axios.put(`http://localhost:5000/api/users/${id}` , currentUser );
+    }else{
+      alert("Already liked");
+    }
+    setPopup(false)
+  }
 
   return (
     <div
@@ -57,7 +91,14 @@ const LectureShowPopup = ({ currLecture, setPopup }) => {
           <h2>{currLecture.username}</h2>
         </div>
         <div id="desc-div">{currLecture.description}</div>
-        <i id="popup-pdf-btn" onClick={downloadPdf} class='bx bxs-file-pdf'></i>
+        <div id="popup-actions-wrapper">
+          <i
+            id="popup-pdf-btn"
+            onClick={downloadPdf}
+            class="bx bxs-file-pdf"
+          ></i>
+          <i id="popup-heart-btn" class="bx bx-heart" onClick={likeLecture}></i>
+        </div>
       </div>
     </div>
   );

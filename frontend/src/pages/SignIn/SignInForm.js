@@ -5,9 +5,9 @@ import "./SignInForm.css"; // Make sure this path is correct based on your proje
 
 const SignInForm = () => {
   const [currentUser, setCurrentUser] = useState({
-    username: "oqro_yan",
-    email: "tikokr2006@gmail.com",
-    password: "TIgran2006@#$",
+    username: "erik999",
+    email: "erik@gmail.com",
+    password: "ERik$$",
   });
 
   const navigate = useNavigate();

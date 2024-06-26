@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import './LectureCard.css';
 
-const LectureCard = ({lectureName , lectureTitle, studentName, studentSurname , uploadDate}) => {
+const LectureCard = ({lectureName , lectureTitle, studentName, studentSurname , uploadDate , id}) => {
+  
+  const [currLecture, setCurrLecture] = useState({});
+  
+  const getLecture = () => {
+    const lecture = axios.get(`http://localhost:5000/api/lectures/${id}`)
+    setCurrLecture(lecture);
+  }
+  
+  useEffect(()=>{
+    getLecture();
+  },[id])
+
   return (
     <div id="lecture-card">
       <div id="lecture-card-image"></div>

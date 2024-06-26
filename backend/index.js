@@ -5,6 +5,8 @@ const cors = require('cors');
 
 const userRoute = require('./routes/user.route.js');
 const usernameRoute = require('./routes/username.route.js');
+const lectureRoute = require('./routes/lecture.route.js');
+
 
 // Main
 dotenv.config();
@@ -28,6 +30,8 @@ app.get('/' , (request , response) => {
 
 app.use('/api/users', userRoute)
 app.use('/api/usernames', usernameRoute)
+app.use('/api/lectures', lectureRoute)
+
 // Database connecting
 
 const PORT = process.env.PORT || 5000;

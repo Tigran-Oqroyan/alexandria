@@ -1,0 +1,83 @@
+#lecture-popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#lecture-popup-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 40px 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 10;
+    border-radius: 16px;
+}
+
+form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#lecture-popup-content form input {
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    width: 80%;
+    height: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+}
+
+#lecture-popup-content form textarea {
+    max-width: 370px;
+    width: 80%;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+}
+
+#lecture-popup-content form button{
+    width: 80%;
+    height: 50px;
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+}
+
+
+.input-error {
+    border: 1px solid red;
+}
+
+.error-text {
+    align-self: flex-start;
+    margin-left: 55px ;
+    color: red;
+    font-size: 16px;
+    margin-top: 4px;
+}

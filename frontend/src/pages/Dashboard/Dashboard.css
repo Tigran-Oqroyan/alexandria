@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+#dashboard-sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #f4f2ef;
+  height: 100%;
+  width: 300px;
+}
+
+#dashboard-logo{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#dashboard-logo-name{
+  margin-top: 30px;
+  color: black;
+  font-size: 22px;
+  font-weight: 800;
+  font-family: 'Audiowide', sans-serif;
+}
+
+#dashboard-nav-links{
+  height: 100%;
+  padding-top: 30px;
+}
+
+#dashboard-nav-link{
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+
+#dashboard-nav-link:hover{
+  background: #d6d5d2;
+}
+
+ .icon-links{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon-links i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px; 
+  color: #213e60;
+  font-size: 25px;
+}
+
+.icon-links a{
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center; 
+}
+
+.icon-links .link-name{
+  color: #213e60;
+  font-weight: 500;
+} 
+
+#universities-sub-menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 6px 14px 80px;
+  margin-top: 10px;
+  background:  #d6d5d2;
+}
+
+#categories-sub-menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 6px 14px 80px;
+  margin-top: 10px;
+  background:  #d6d5d2;
+}
+
+#dashboard-user-circle{
+  border: 2px solid black;
+  border-radius: 50%;
+  position: absolute;
+  bottom:30px;
+  left: 35px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#dashboard-plus-icon{
+  position: absolute;
+  bottom:25px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+}
+
+#dashboard-content{
+  padding: 20px;
+  max-width: 1130px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

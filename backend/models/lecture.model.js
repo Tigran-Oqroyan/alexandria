@@ -1,49 +1,45 @@
 const mongoose = require('mongoose');
 
-const UserScheme = mongoose.Schema(
+const LectureScheme = mongoose.Schema(
     {
-        _id:{
+         _id:{
+            type:Number,
+            require:[true]
+         },
+         title:{
             type:String,
             require:[true]
-        },
-        name:{
+         },
+         university:{
             type:String,
             require:[true]
-        },
-        surname:{
+         },
+         category:{
             type:String,
             require:[true]
-        },
-        username:{
+         },
+         username:{
             type:String,
             require:[true]
-        },
-        password:{
+         },
+         studentName:{
             type:String,
             require:[true]
-        },
-        repeatPassword:{
+         },
+         studentSurname:{
             type:String,
             require:[true]
-        },
-        univercity:{
+         },
+         description:{
             type:String,
             require:[true]
-        },
-        email:{
+         },
+         uploadDate:{
             type:String,
             require:[true]
-        },
-        phone:{
-            type:String,
-            require:[true]
-        },
-        lectures:{
-            type:Array,
-            require:[false]
-        }
+         }
     }
 )
 
-const User = mongoose.model('User' , UserScheme);
-module.exports = User;
+const Lecture = mongoose.model('Lecture', LectureScheme);
+module.exports = Lecture;

@@ -18,7 +18,11 @@ const LectureScheme = mongoose.Schema(
             type:String,
             require:[true]
          },
-         studentname:{
+         username:{
+            type:String,
+            require:[true]
+         },
+         studentName:{
             type:String,
             require:[true]
          },

@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import selectedUniversityReducer from "./Slices/SelectedUniversitySlice";
-import selecteDashboardUniversitySlice from "./Slices/SelectedDashboardUniversitySlice";
-import selectedDashboardCategorySlice from "./Slices/SelectedDashboardCategorySlie.";
+import selecteDashboardUniversityReducer from "./Slices/SelectedDashboardUniversitySlice";
+import selectedDashboardCategoryReducer from "./Slices/SelectedDashboardCategorySlie.";
 
 const reducer = combineReducers({
   currentSelectedUniversity: selectedUniversityReducer,
-  currentDashboardUniversity: selecteDashboardUniversitySlice,
-  currentDashboardCategory: selectedDashboardCategorySlice,
+  currentDashboardUniversity: selecteDashboardUniversityReducer,
+  currentDashboardCategory: selectedDashboardCategoryReducer,
 });
 
 const store = configureStore({

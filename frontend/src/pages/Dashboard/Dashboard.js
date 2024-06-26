@@ -7,21 +7,27 @@ import categories from "../../utils/categories";
 import UnivercityDashboardBlock from "../../components/UnivercityDashboardBlock/UnivercityDashboardBlock";
 import CategoryDashboardBlock from "../../components/CategoryDashboardBlock/CategoryDashboardBlock";
 import LectureCard from "../../components/LectureCard/LectureCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LecturePopup from "../../components/LecturePopup/LecturePopup";
+import { changeSelectedDashboardCategory } from "../../store/Slices/SelectedDashboardCategorySlie.";
+import { changeSelectedDashboardUniversity } from "../../store/Slices/SelectedDashboardUniversitySlice";
 
 const Dashboard = () => {
-
+  const dispatch = useDispatch();
   const { id } = useParams();
-  let lecturesAmount = 0;
+
+  const [lecturesAmount , setLecturesAmount] = useState(0);
   const [allLectures, setAllLectures] = useState([]);
+  const [filteredLectures , setFilteredLectures] = useState(allLectures);
   const [currentUser, setCurrentUser] = useState({});
   const [lecturePopup, setLecturePopup] = useState(false);
+  const [lectureShowPoup, setLectureShowPoup] = useState(false);
 
   const [subMenus, setSubMenus] = useState({
     universities: false,
     categories: false,
   });
+
 
   const currentDashboardUniversity = useSelector(
     (state) => state.currentDashboardUniversity
@@ -30,10 +36,12 @@ const Dashboard = () => {
     (state) => state.currentDashboardCategory
   );
 
+
+
   const getAllLectures = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/lectures");
-      lecturesAmount = response.data.length;
+      setLecturesAmount(response.data.length);
       setAllLectures(response.data);
     } catch (error) {
       console.error("Error fetching lectures:", error);
@@ -41,6 +49,7 @@ const Dashboard = () => {
   };
 
   const filterLectures = (university = null, category = null) => {
+    console.log("called");
     const filteredLectures = allLectures?.filter((lecture) => {
       if (university && category) {
         return (
@@ -51,12 +60,22 @@ const Dashboard = () => {
       } else if (!university && category) {
         return lecture.category === category;
       } else {
+        dispatch(changeSelectedDashboardCategory(""));
+        dispatch(changeSelectedDashboardUniversity(""));
         return true;
       }
     });
 
-    setAllLectures(filteredLectures);
-  };
+    setFilteredLectures(filteredLectures);
+  };  
+
+  useEffect(() => {
+    console.log("entered");
+    const fetchData = async () => {
+      await getAllLectures();
+    }
+    fetchData();
+  },[])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +96,11 @@ const Dashboard = () => {
   useEffect(() => {
     filterLectures(currentDashboardUniversity, currentDashboardCategory);
   }, [currentDashboardUniversity, currentDashboardCategory]);
+
+  const addNewLecture = (lecture) => {
+    setAllLectures((prev) => [...prev, lecture]);
+    filterLectures(currentDashboardUniversity, currentDashboardCategory);
+  };
 
   return (
     <div id="full-dashboard">
@@ -101,16 +125,16 @@ const Dashboard = () => {
 
           <li
             id="dashboard-nav-link link2"
-            onClick={() => [
+            onClick={() => {
               setSubMenus((prev) => {
                 return { categories: false, universities: !prev.universities };
-              }),
-            ]}
+              });
+            }}
           >
             <div className="icon-links">
               <a>
                 <i className="bx bx-buildings"></i>
-                <span className="link-name">University</span>
+                <span className="link-name">{currentDashboardUniversity ? currentDashboardUniversity : "Select University"}</span>
               </a>
               <i className="bx bx-chevron-down"></i>
             </div>
@@ -140,7 +164,7 @@ const Dashboard = () => {
             <div className="icon-links">
               <a>
                 <i className="bx bx-category"></i>
-                <span className="link-name">Category</span>
+                <span className="link-name">{currentDashboardCategory ? currentDashboardCategory : "Select Category"}</span>
               </a>
               <i className="bx bx-chevron-down"></i>
             </div>
@@ -160,9 +184,19 @@ const Dashboard = () => {
           ) : null}
         </ul>
 
-        <div id="dashboard-content">
-          Lectures
-          {allLectures?.map((lecture, index) => {
+        <div id="dashboard-user-circle">U</div>
+        <i
+          id="dashboard-plus-icon"
+          className="bx bx-plus"
+          onClick={() => {
+            setLecturePopup(!lecturePopup);
+          }}
+        ></i>
+      </div>
+      {filteredLectures.length > 0 ? 
+      <div id="dashboard-content">
+          
+          {filteredLectures?.map((lecture, index) => {
             return (
               <LectureCard
                 lectureName={lecture.title}
@@ -170,25 +204,14 @@ const Dashboard = () => {
                 studentName={lecture.studentName}
                 studentSurname={lecture.studentSurname}
                 uploadDate={lecture.uploadDate}
-                id={lecture.id}
-                key={lecture.id}
+                id={lecture._id}
+                key={lecture._id}
               />
             );
           })}
         </div>
-
-        <div id="dashboard-user-circle">U</div>
-        <i
-          id="dashboard-plus-icon"
-          className="bx bx-plus"
-          onClick={() => {
-            console.log("clicked");
-            setLecturePopup(!lecturePopup);
-            console.log(lecturePopup);
-          }}
-        ></i>
-      </div>
-      {lecturePopup ? <LecturePopup currentUser={currentUser} id={lecturesAmount + 1} setPopup={setLecturePopup}/> : null}
+      : <div id="dashboard-content">There is no lectures yet . Find / Add them !</div> }
+      {lecturePopup ? <LecturePopup currentUser={currentUser} id={lecturesAmount + 1} setLecturePopup={setLecturePopup} addNewLecture={addNewLecture}/> : null}
     </div>
   );
 };

@@ -37,6 +37,10 @@ const UserScheme = mongoose.Schema(
         phone:{
             type:String,
             require:[true]
+        },
+        lectures:{
+            type:Array,
+            require:[false]
         }
     }
 )

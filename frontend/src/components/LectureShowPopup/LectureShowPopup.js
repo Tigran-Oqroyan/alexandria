@@ -85,10 +85,10 @@ const LectureShowPopup = ({ currLecture, setPopup }) => {
     >
       <div id="lecture-show-popup-content" onClick={(e) => e.stopPropagation()}>
         <div id="show-popup-headers-wrapper">
-          <h2>{currLecture.title}</h2>
-          <h2>{currLecture.university}</h2>
-          <h2>{currLecture.category}</h2>
-          <h2>{currLecture.username}</h2>
+          <h2>{currLecture?.title?.length > 15 ? currLecture?.title?.substring(0,15) + "..." : currLecture?.title}</h2>
+          <h2>{currLecture?.university?.length > 15 ? currLecture?.university?.substring(0,15) + "..." : currLecture?.university}</h2>
+          <h2>{currLecture?.category?.length > 15 ? currLecture?.category?.substring(0,15) + "..." : currLecture?.category}</h2>
+          <h2>{currLecture?.username?.length > 15 ? currLecture?.username?.substring(0,15) + "..." : currLecture?.username}</h2>
         </div>
         <div id="desc-div">{currLecture.description}</div>
         <div id="popup-actions-wrapper">

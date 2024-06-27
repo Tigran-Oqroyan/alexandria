@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import universities from "../../utils/universities";
+import universitiesInfo from "../../utils/universitiesInfo";
 import UserCard from "../../components/UserCard/UserCard";
 import UnivercityCard from "../../components/UnivercityCard/UnivercityCard";
 import axios from "axios";
@@ -155,8 +156,8 @@ const Userpage = () => {
             })
           : null}
         {buttons.universities
-          ? content.map(() => {
-              return <UnivercityCard />;
+          ? content.map((u) => {
+              return <UnivercityCard universityName={u} universityDescription={universitiesInfo[u]} />;
             })
           : null}
         {buttons.userLectures
